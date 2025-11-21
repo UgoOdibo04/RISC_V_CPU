@@ -1,4 +1,4 @@
-module pc_reg (
+module pc (
     input        clock,
     input         reset,
     input   [31:0] next_pc,
