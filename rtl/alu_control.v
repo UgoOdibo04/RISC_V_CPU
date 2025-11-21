@@ -29,6 +29,7 @@ module alu_control (
     regwrite    = 1'b0;
 
     case (opcode)
+      //R Type Intstructions 
        7'b0110011: begin 
          regwrite = 1'b1;
          case(func3)
@@ -43,21 +44,70 @@ module alu_control (
         endcase
       end
            
-
+      //I Type Instructions
        7'b0010011: begin
+         regwrite = 1'b1;
+        case (func3)
+          3'b000: alu_control = ADD;    
+          3'b010: alu_control = SLT;    
+          3'b011: alu_control = SLTU;    
+          3'b100: alu_control = XOR;     
+          3'b110: alu_control = OR;      
+          3'b111: alu_control = AND;     
+          3'b001: alu_control = SLL;     
+          3'b101: alu_control = (func7 == 7'b0000000) ? SRL : SRR; 
+        endcase
+      end
 
+      
+      //Load Instruction 
        7'b0000011: begin
-
-
+         regwrite = 1'b1;
+         alu_control = ADD;
+       end 
+      
+      //Store Instruction 
        7'b0100011: begin 
+         regwrite = 1'b0;
+         alu_control = ADD;
+       end 
 
       7'b1100011: begin
+        case (func3)
+          3'b000: alu_control = SUB;  // BEQ
+          3'b001: alu_control = SUB;  // BNE
+          3'b100: alu_control = SLT;  // BLT
+          3'b101: alu_control = SLT;  // BGE (using flags)
+          3'b110: alu_control = SLTU; // BLTU
+          3'b111: alu_control = SLTU; // BGEU
+        endcase
+          regwrite = 1'b0;
+      end 
 
+      //jal 
           7'b1101111: begin 
-
+            regwrite    = 1'b1;
+          alu_control = ALU_ADD;
+      end
+//jalr 
+      7'b1101111: begin 
+        regwrite    = 1'b1;
+          alu_control = ALU_ADD;
+      end
+        
+            //LUI
             7'b0110111: begin 
+              regwrite    = 1'b1;
+        alu_control = ALU_ADD;
+      end
 
               7'b1110011: begin 
+                regwrite    = 1'b1;
+        alu_control = ALU_ADD;
+              end 
+    endcase
+  end
+endmodule
 
 
 
