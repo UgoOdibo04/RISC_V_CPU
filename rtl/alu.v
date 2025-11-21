@@ -4,10 +4,10 @@ module alu (
   input [4:0] AluOP,
   
   output reg  [31:0] ALU_Result,
-  output reg         zero,
-  output reg         eq,
-  output reg         lt_signed,
-  output reg         lt_unsigned
+  output reg  zero,
+  output reg  eq,
+  output reg  lt_signed,
+  output reg  lt_unsigned
 );
 
   localparam AND   = 5'd0;
