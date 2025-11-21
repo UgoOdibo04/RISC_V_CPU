@@ -37,8 +37,8 @@ module alu (
       SLL:  ALU_Result = Reg1 << Reg2[4:0];                              // Shift Left Logical
       SRL:  ALU_Result = Reg1 >> Reg2[4:0];                              // Shift Right Logical
       SRA:  ALU_Result = $signed(Reg1) >>> Reg2[4:0];                    // Shift Right Arithmetic
-      XOR:  ALU_Result = Reg1 ^ Reg2;                                    // XOR (was swapped with MUL)
-      MUL:  ALU_Result = Reg1 * Reg2;                                    // MUL (was swapped with XOR)
+      XOR:  ALU_Result = Reg1 ^ Reg2;                                    // XOR 
+      MUL:  ALU_Result = Reg1 * Reg2;                                    // MUL 
       SLT:  ALU_Result = (signed_Reg1 < signed_Reg2) ? 32'd1 : 32'd0;  // Signed LT
       SLTU: ALU_Result = (Reg1 < Reg2) ? 32'd1 : 32'd0;                  // Unsigned LT
       default: ALU_Result = 32'd0;
