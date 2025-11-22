@@ -6,9 +6,10 @@ module mem (
   input [31:0] read_address, 
   input  [31:0] write_data, 
   output [31:0] data_out, 
+  integer k
 );
 reg [31:0] D_Memory [127:0];
-  integer k
+  
 
   always @(posedge clock or posedge reset)
     being
