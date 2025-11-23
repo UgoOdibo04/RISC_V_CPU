@@ -1,6 +1,7 @@
 module EX_MEM (
     input  wire        clk,
     input  wire        reset,
+    input  wire        flush,
 
     // From EX stage
     input  wire [31:0] ALUResultE,
@@ -42,7 +43,19 @@ module EX_MEM (
             MemToRegM     <= 1'b0;
             RegWriteM     <= 1'b0;
         end
-        else begin
+        else if(flush) begin
+            ALUResultM    <= 32'b0;
+            WriteDataM    <= 32'b0;
+            BranchTargetM <= 32'b0;
+            PCSrcM        <= 1'b0;
+            RdM           <= 5'b0;
+
+            MemWriteM     <= 1'b0;
+            MemReadM      <= 1'b0;
+            MemToRegM     <= 1'b0;
+            RegWriteM     <= 1'b0;
+        end 
+            else begin
             ALUResultM    <= ALUResultE;
             WriteDataM    <= WriteDataE;
             BranchTargetM <= BranchTargetE;
