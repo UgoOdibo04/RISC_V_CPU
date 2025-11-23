@@ -12,6 +12,7 @@ module Fetch_Cycle(
     output wire [31:0] InstrD,
     output wire [31:0] PCD,
     output wire [31:0] PCPlus4D
+    output wire FlushD
 );
 
     // Internal wires
@@ -100,8 +101,9 @@ module Fetch_Cycle(
     IF_ID IFID (
         .clk(clk),
         .reset(reset),
-        .write_enable(1'b1), // connect your IFID_Write (from hazard unit) at top-level
+        .write_enable(1'b1), 
         .instr_in(InstrF),
+        .flush(FlushD),             
         .pc_in(PCF),
         .pcplus4_in(PCPlus4F),
 
