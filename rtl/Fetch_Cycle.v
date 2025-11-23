@@ -1,7 +1,8 @@
 module Fetch_Cycle(
     input  wire        clk,
     input  wire        reset,
-    input  wire        PCSrcE,        // branch control from EX
+    input  wire        PCSrcE, 
+    input  wire        PCWrite,
     input  wire [31:0] PCTargetE,     // branch target from EX
 
     output wire [31:0] InstrD,        // IF/ID outputs
@@ -31,9 +32,10 @@ module Fetch_Cycle(
     pc ProgramCounter (
         .clock(clk),
         .reset(reset),
+        .pc_write(PCWrite),     
         .next_pc(PCNextF),
         .pc(PCF)
-    );
+);
 
     // Instruction Memory
     imem InstructionMemory (
