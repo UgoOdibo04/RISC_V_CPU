@@ -1,6 +1,7 @@
 module ID_EX (
     input  wire        clk,
     input  wire        reset,
+    input  wire        flush,        // FlushE from flush unit
 
     // From Decode Stage (ID)
     input  wire [31:0] RD1D,
@@ -72,6 +73,30 @@ module ID_EX (
             BranchE     <= 1'b0;
             ALUControlE <= 5'b0;
         end
+        else if (flush) begin
+            // On flush, inject a bubble: zero all control signals and data
+            // We zero data as well to be safe (bubble)
+            RD1E        <= 32'b0;
+            RD2E        <= 32'b0;
+            ImmE        <= 32'b0;
+            PCE         <= 32'b0;
+            PCPlus4E    <= 32'b0;
+
+            Rs1E        <= 5'b0;
+            Rs2E        <= 5'b0;
+            RdE         <= 5'b0;
+            Funct3E     <= 3'b0;
+            Funct7E     <= 7'b0;
+            OpcodeE     <= 7'b0;
+
+            MemWriteE   <= 1'b0;
+            MemReadE    <= 1'b0;
+            MemToRegE   <= 1'b0;
+            ALUSrcE     <= 1'b0;
+            RegWriteE   <= 1'b0;
+            BranchE     <= 1'b0;
+            ALUControlE <= 5'b0;
+        end
         else begin
             RD1E        <= RD1D;
             RD2E        <= RD2D;
@@ -97,4 +122,3 @@ module ID_EX (
     end
 
 endmodule
-
