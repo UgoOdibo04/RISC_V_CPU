@@ -20,9 +20,7 @@ module register_file(
     reg [31:0] reg_memory [0:31];
     integer i;
 
-    // ---------------------------
     // RESET: fill registers with 0
-    // ---------------------------
     always @(posedge clock or posedge reset) begin
         if (reset) begin
             for (i = 0; i < 32; i = i + 1)
